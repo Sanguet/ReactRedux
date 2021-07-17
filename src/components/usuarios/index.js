@@ -1,35 +1,36 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import * as usuariosActions from "../../actions/usuariosActions";
-import Spinner from '../general/spinner';
-import Fatal from '../general/fatal';
-import Tabla from './tabla';
-
+import Spinner from "../general/spinner";
+import Fatal from "../general/fatal";
+import Tabla from "./tabla";
 
 class Usuarios extends Component {
     componentDidMount() {
-        this.props.traerTodos();
+        if (!this.props.usuarios.length) {
+            this.props.traerTodos();
+        }
     }
 
     ponerContenido = () => {
         if (this.props.cargando) {
-            return <Spinner/>;
+            return <Spinner />;
         }
 
         if (this.props.error) {
-            return <Fatal mensaje={ this.props.error } />;
+            return <Fatal mensaje={this.props.error} />;
         }
 
         return <Tabla />;
     };
 
-
     render() {
         return (
-        <div>
-            <h1> Usuarios </h1>
-            {this.ponerContenido()}
-        </div>)
+            <div>
+                <h1> Usuarios </h1>
+                {this.ponerContenido()}
+            </div>
+        );
     }
 }
 
