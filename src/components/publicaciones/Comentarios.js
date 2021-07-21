@@ -1,25 +1,31 @@
-import React from 'react';
+import React from "react";
+import { connect } from "react-redux";
+import Spinner from "../general/spinner";
+import Fatal from "../general/fatal";
 
 const Comentarios = (props) => {
-	return (
-		<ul>
-			<li>
-				hola
-			</li>
-			<li>
-				hola
-			</li>
-			<li>
-				hola
-			</li>
-			<li>
-				hola
-			</li>
-			<li>
-				hola
-			</li>
-		</ul>
-	);
+    if (props.com_error) {
+        return <Fatal mensaje={props.com_error} />;
+    }
+
+    if (props.com_cargando && !props.comentarios.length) {
+        return <Spinner />;
+    }
+
+    const ponerComentarios = () =>
+        props.comentarios.map((comentario) => (
+            <li key={comentario.id}>
+                <b>
+                    <u>{comentario.email}</u>
+                </b>
+                <br />
+                {comentario.body}
+            </li>
+        ));
+
+    return <ul>{ponerComentarios()}</ul>;
 };
 
-export default Comentarios;
+const mapStateToProps = ({ publicacionesReducer }) => publicacionesReducer;
+
+export default connect(mapStateToProps)(Comentarios);
