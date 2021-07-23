@@ -3,7 +3,8 @@ import { BrowserRouter, Route } from "react-router-dom";
 import Menu from "./menu";
 import Usuarios from "./usuarios";
 import publicaciones from "./publicaciones"
-const Tareas = () => <div>Tareas</div>;
+import Tareas from "./Tareas";
+import TareasGuardar from "./Tareas/Guardar";
 
 const App = () => (
   <BrowserRouter>
@@ -12,6 +13,8 @@ const App = () => (
       <Route exact path="/" component={Usuarios} />
       <Route exact path="/tareas" component={Tareas} />
       <Route exact path="/publicaciones/:key" component={publicaciones} />
+      <Route exact path="/tareas/guardar" component={TareasGuardar} />
+      <Route exact path='/tareas/guardar/:usu_id/:tar_id' component={TareasGuardar} />
 
     </div>
   </BrowserRouter>
